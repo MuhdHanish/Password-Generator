@@ -1,28 +1,29 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 function App() {
+  
   const [isCopied, setIsCopied] = useState(false);
   const [strength, setStrength] = useState("Strong");
   const [password, setPassword] = useState("");
   const [passwordLength, setPasswordLength] = useState(15);
   const [includeLowercase, setIncludeLowercase] = useState(true);
-  const [includeUppercase, setIncludeUppercase] = useState(false);
-  const [includeNumbers, setIncludeNumbers] = useState(false);
-  const [includeSymbols, setIncludeSymbols] = useState(false);
+  const [includeUppercase, setIncludeUppercase] = useState(true);
+  const [includeNumbers, setIncludeNumbers] = useState(true);
+  const [includeSymbols, setIncludeSymbols] = useState(true);
 
   function checkPasswordStrength(password) {
-    // Define the criteria for different strength levels
-    const lengthCriteria = 8; // Minimum length for medium strength
+    const lengthCriteria = 8; 
     const mediumStrengthCriteria =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
-    const strongStrengthCriteria =  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/;  
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/;
+    const strongStrengthCriteria =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]+$/;
     
     if (password.length < lengthCriteria) {
       return setStrength("Weak");
-    } else if (strongStrengthCriteria.test(password)) {
-      return setStrength("Strong");
     } else if (mediumStrengthCriteria.test(password)) {
       return setStrength("Medium");
+    } else if (strongStrengthCriteria.test(password)) {
+      return setStrength("Strong");
     } else {
       return setStrength("Weak");
     }
@@ -38,7 +39,7 @@ function App() {
     };
   }, [isCopied]);
 
-  const generatePassword = () => {
+  const generatePassword = useCallback(() => {
     let charset = "";
 
     if (includeLowercase) {
@@ -48,10 +49,10 @@ function App() {
       charset += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     }
     if (includeNumbers) {
-      charset += "012345678901234567890123456789";
+      charset += "0123456789";
     }
     if (includeSymbols) {
-      charset += "!@#$%^&*()_+!@#$%^&*()_+!@#$%^&*()_+";
+      charset += "!@#$%^&*()_+";
     }
 
     let newPassword = "";
@@ -61,7 +62,11 @@ function App() {
     }
     checkPasswordStrength(newPassword);
     setPassword(newPassword);
-  };
+  },[includeLowercase, includeNumbers, includeSymbols, includeUppercase, passwordLength]);
+
+  useEffect(() => {
+    generatePassword();
+  }, [generatePassword,passwordLength]);
 
   const handleCopyClick = async () => {
     if (password) {
@@ -101,12 +106,7 @@ function App() {
             </label>
             <span>{passwordLength}</span>
           </div>
-          <input
-            type="range"
-            min={1}
-            max={30}
-            value={passwordLength}
-            step={1}
+          <input type="range" min={1} max={30} value={passwordLength} step={1}
             onChange={(e) => setPasswordLength(Number(e.target.value))}
           />
         </div>
