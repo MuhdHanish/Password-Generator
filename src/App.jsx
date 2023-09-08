@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import PasswordInput from "./components/PasswordInput";
 import PasswordStrengthIndicator from "./components/PasswordStrengthIndicator";
+import PasswordLength from "./components/PasswordLength";
 
 function App() {
   
@@ -76,17 +77,7 @@ function App() {
       <div className="wrapper">
         <PasswordInput isCopied={isCopied} setIsCopied={setIsCopied} password={password} />
         <PasswordStrengthIndicator strength={strength} />
-        <div className="pass-length">
-          <div className="details">
-            <label htmlFor="" className="title">
-              Password Length
-            </label>
-            <span>{passwordLength}</span>
-          </div>
-          <input type="range" min={1} max={30} value={passwordLength} step={1}
-            onChange={(e) => setPasswordLength(Number(e.target.value))}
-          />
-        </div>
+        <PasswordLength passwordLength={passwordLength} setPasswordLength={setPasswordLength}/>
         <div className="pass-settings">
           <label htmlFor="" className="title">
             Password settings
