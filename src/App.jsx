@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import PasswordInput from "./components/PasswordInput";
 import PasswordStrengthIndicator from "./components/PasswordStrengthIndicator";
 import PasswordLength from "./components/PasswordLength";
+import PasswordSettings from "./components/PasswordSettings";
 
 function App() {
   
@@ -78,49 +79,12 @@ function App() {
         <PasswordInput isCopied={isCopied} setIsCopied={setIsCopied} password={password} />
         <PasswordStrengthIndicator strength={strength} />
         <PasswordLength passwordLength={passwordLength} setPasswordLength={setPasswordLength}/>
-        <div className="pass-settings">
-          <label htmlFor="" className="title">
-            Password settings
-          </label>
-          <ul className="options">
-            <li className="option">
-              <input
-                type="checkbox"
-                id="lowercase"
-                checked={includeLowercase}
-                onChange={() => setIncludeLowercase(!includeLowercase)}
-              />
-              <label htmlFor="lowercase">Lowercase (a-z)</label>
-            </li>
-            <li className="option">
-              <input
-                type="checkbox"
-                id="uppercase"
-                checked={includeUppercase}
-                onChange={() => setIncludeUppercase(!includeUppercase)}
-              />
-              <label htmlFor="uppercase">Uppercase (A-Z)</label>
-            </li>
-            <li className="option">
-              <input
-                type="checkbox"
-                id="numbers"
-                checked={includeNumbers}
-                onChange={() => setIncludeNumbers(!includeNumbers)}
-              />
-              <label htmlFor="numbers">Numbers (0-9)</label>
-            </li>
-            <li className="option">
-              <input
-                type="checkbox"
-                id="symbols"
-                checked={includeSymbols}
-                onChange={() => setIncludeSymbols(!includeSymbols)}
-              />
-              <label htmlFor="symbols">Symbols (!-$^+)</label>
-            </li>
-          </ul>
-        </div>
+        <PasswordSettings
+          includeLowercase={includeLowercase} includeUppercase={includeUppercase}
+          includeNumbers={includeNumbers} includeSymbols={includeSymbols}
+          setIncludeLowercase={setIncludeLowercase} setIncludeUppercase={setIncludeUppercase}
+          setIncludeNumbers={setIncludeNumbers} setIncludeSymbols={setIncludeSymbols}
+        />
         <button className="generate-btn" onClick={generatePassword}>
           Generate Password
         </button>
