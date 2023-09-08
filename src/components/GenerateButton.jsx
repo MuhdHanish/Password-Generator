@@ -1,9 +1,15 @@
-import PorpTypes from "prop-types";
+import PropTypes from "prop-types";
 
-const GenerateButton = () => {
+const GenerateButton = ({ generatePassword }) => {
   return (
-    <div>GenerateButton</div>
-  )
-}
+    <button className="generate-btn" onClick={generatePassword}>
+      Generate Password
+    </button>
+  );
+};
+
+GenerateButton.propTypes = {
+  generatePassword: PropTypes.func.isRequired,
+};
 
 export default GenerateButton

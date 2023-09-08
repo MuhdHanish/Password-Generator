@@ -3,6 +3,7 @@ import PasswordInput from "./components/PasswordInput";
 import PasswordStrengthIndicator from "./components/PasswordStrengthIndicator";
 import PasswordLength from "./components/PasswordLength";
 import PasswordSettings from "./components/PasswordSettings";
+import GenerateButton from "./components/GenerateButton";
 
 function App() {
   
@@ -85,9 +86,7 @@ function App() {
           setIncludeLowercase={setIncludeLowercase} setIncludeUppercase={setIncludeUppercase}
           setIncludeNumbers={setIncludeNumbers} setIncludeSymbols={setIncludeSymbols}
         />
-        <button className="generate-btn" onClick={generatePassword}>
-          Generate Password
-        </button>
+        <GenerateButton generatePassword={generatePassword}/>
       </div>
     </div>
   );
