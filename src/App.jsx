@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import PasswordInput from "./components/PasswordInput";
+import PasswordStrengthIndicator from "./components/PasswordStrengthIndicator";
 
 function App() {
   
@@ -74,7 +75,7 @@ function App() {
       <h2>Password Generator</h2>
       <div className="wrapper">
         <PasswordInput isCopied={isCopied} setIsCopied={setIsCopied} password={password} />
-        <div className="pass-indicator" id={strength === "Strong" ? "strong" : strength === "Medium" ? "medium" : "weak"}></div>
+        <PasswordStrengthIndicator strength={strength} />
         <div className="pass-length">
           <div className="details">
             <label htmlFor="" className="title">
