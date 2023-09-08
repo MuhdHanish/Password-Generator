@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
+import PasswordInput from "./components/PasswordInput";
 
 function App() {
   
@@ -68,36 +69,11 @@ function App() {
     generatePassword();
   }, [generatePassword,passwordLength]);
 
-  const handleCopyClick = async () => {
-    if (password) {
-      try {
-        await navigator.clipboard.writeText(password);
-        setIsCopied(true);
-      } catch (error) {
-        console.error("Failed to copy text: ", error);
-      }
-    }
-  };
-
   return (
     <div className="container">
       <h2>Password Generator</h2>
       <div className="wrapper">
-        <div className="input-box">
-          <input type="text" value={password} readOnly />
-          {isCopied ? (
-            <span className="material-symbols-outlined">check</span>
-          ) : (
-            <span
-              className="material-symbols-outlined"
-              onClick={() => {
-                handleCopyClick();
-              }}
-            >
-              copy_all
-            </span>
-          )}
-        </div>
+        <PasswordInput isCopied={isCopied} setIsCopied={setIsCopied} password={password} />
         <div className="pass-indicator" id={strength === "Strong" ? "strong" : strength === "Medium" ? "medium" : "weak"}></div>
         <div className="pass-length">
           <div className="details">
